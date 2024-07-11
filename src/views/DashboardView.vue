@@ -5,6 +5,5 @@ import DashboardHeader from '@/components/DashboardHeader.vue'
 <template>
   <main>
     <dashboard-header />
-    Hello There
   </main>
 </template>
