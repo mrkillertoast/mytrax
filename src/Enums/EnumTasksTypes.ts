@@ -1,0 +1,5 @@
+export enum EnumTasksTypes {
+  PRIVATE_TASKS = 'TASKS:PRIVATE',
+  WORKING_TASKS = 'TASKS:WORK',
+  ALL_TASKS = 'TASKS:ALL',
+}
