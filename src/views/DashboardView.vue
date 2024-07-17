@@ -44,6 +44,21 @@ const activeTasks: Ref<EnumTasksTypes> = ref(EnumTasksTypes.ALL_TASKS)
           My Tasks
         </div>
         <TabsSelector v-model="activeTasks" />
+        <div class="task-container m-2 p-2 border border-black rounded-box">
+          <div class="task-header flex gap-2">
+
+            <input type="checkbox" name="" id="" class="checkbox">
+            <div class="task-title font-bold">Some Task</div>
+          </div>
+          <div class="task-content flex gap-2 mt-1 h-6">
+            <span class=""><iconify-icon icon="material-symbols:exclamation-rounded" width="1.5rem"
+                                height="1.5rem" style="color: red; font-weight: bold"></iconify-icon></span>
+            <div class="task-tags flex gap-1.5 text-xs items-center  ">
+              <span class="border border-black rounded-box py-0.5 px-1 text-center">A Tag</span>
+              <span class="border border-black rounded-box py-0.5 px-1">another tag</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
