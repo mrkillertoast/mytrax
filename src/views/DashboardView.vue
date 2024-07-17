@@ -6,6 +6,8 @@ import { type Ref, ref } from 'vue'
 
 import { EnumTasksTypes } from '@/Enums/EnumTasksTypes'
 import TabsSelector from '@/components/TasksTabSelector.vue'
+import TaskItem from '@/components/TaskItem.vue'
+import { EnumTaskPriority } from '@/Enums/EnumTaskPriority'
 
 const timelineCompact: Ref<Boolean> = ref(true)
 const activeTasks: Ref<EnumTasksTypes> = ref(EnumTasksTypes.ALL_TASKS)
@@ -44,20 +46,10 @@ const activeTasks: Ref<EnumTasksTypes> = ref(EnumTasksTypes.ALL_TASKS)
           My Tasks
         </div>
         <TabsSelector v-model="activeTasks" />
-        <div class="task-container m-2 p-2 border border-black rounded-box">
-          <div class="task-header flex gap-2">
-
-            <input type="checkbox" name="" id="" class="checkbox">
-            <div class="task-title font-bold">Some Task</div>
-          </div>
-          <div class="task-content flex gap-2 mt-1 h-6">
-            <span class=""><iconify-icon icon="material-symbols:exclamation-rounded" width="1.5rem"
-                                height="1.5rem" style="color: red; font-weight: bold"></iconify-icon></span>
-            <div class="task-tags flex gap-1.5 text-xs items-center  ">
-              <span class="border border-black rounded-box py-0.5 px-1 text-center">A Tag</span>
-              <span class="border border-black rounded-box py-0.5 px-1">another tag</span>
-            </div>
-          </div>
+        <div class="task-container">
+          <TaskItem :priority="EnumTaskPriority.PRIORITY_HIGH" title="High Priority Task" :tags="['private', 'new']"/>
+          <TaskItem :priority="EnumTaskPriority.PRIORITY_NORMAL" title="Normal Priority Task" :tags="['work', 'super secret project']"/>
+          <TaskItem :priority="EnumTaskPriority.PRIORITY_LOW" title="Low Priority Task" :tags="['work']"/>
         </div>
       </div>
     </div>
