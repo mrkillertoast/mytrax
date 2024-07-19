@@ -2,20 +2,20 @@
 import DashboardHeader from '@/components/DashboardHeader.vue'
 import DayTimelineFull from '@/components/DayTimelineFull.vue'
 import DayTimelineCompact from '@/components/DayTimelineCompact.vue'
-import { computed, type Ref, ref } from 'vue'
+import { type Ref, ref } from 'vue'
 import sampleTasks from '../demoData/sampleTasks.json'
 
 import { EnumTasksTypes } from '@/Enums/EnumTasksTypes'
 import TabsSelector from '@/components/TasksTabSelector.vue'
-import TaskItem from '@/components/TaskItem.vue'
-import { EnumTaskPriority } from '@/Enums/EnumTaskPriority'
 import type { ITaskItem } from '@/interfaces/ITaskItem'
-import { format } from '@formkit/tempo'
+import { addDay, format } from '@formkit/tempo'
+import TaskDueContainer from '@/components/TaskDueContainer.vue'
 
 const timelineCompact: Ref<Boolean> = ref(true)
 const activeTasks: Ref<EnumTasksTypes> = ref(EnumTasksTypes.ALL_TASKS)
 
-const dateToday = format(new Date(), { date: 'medium' })
+const currentDate = new Date()
+const dateToday = format(currentDate, { date: 'medium' })
 
 const tasks = sampleTasks
 
@@ -24,29 +24,31 @@ const dueToday: Ref<Array<ITaskItem>> = ref([])
 const dueTomorrow: Ref<Array<ITaskItem>> = ref([])
 const dueLater: Ref<Array<ITaskItem>> = ref([])
 
+const nonCompletedTasks = tasks.filter((task: ITaskItem) => {
+  return !task.completed
+})
+
 const classifyTasks = (() => {
-    for (const task of tasks) {
-      //if (!task.completed) {
-        const formatedTaskDueDate = format(task.dueDate, { date: 'medium' })
+    for (const task of nonCompletedTasks.values()) {
+      const formatedTaskDueDate = format(task.dueDate, { date: 'medium' })
 
-        console.log(formatedTaskDueDate)
-        if (formatedTaskDueDate < dateToday) {
-          duePast.value.push(task)
-        }
-
-        if (formatedTaskDueDate == dateToday) {
-          dueToday.value.push(task)
-        }
-
-        if (formatedTaskDueDate == dateToday + 1) {
-          dueTomorrow.value.push(task)
-        }
-
-        if (formatedTaskDueDate > dateToday + 1) {
-          dueLater.value.push(task)
-        }
+      if (formatedTaskDueDate < dateToday) {
+        duePast.value.push(task)
       }
-   // }
+
+      if (formatedTaskDueDate == dateToday) {
+        dueToday.value.push(task)
+      }
+
+      console.log(addDay(currentDate, 1))
+      if (formatedTaskDueDate === format(addDay(currentDate, 1), { date: 'medium' })) {
+        dueTomorrow.value.push(task)
+      }
+
+      if (formatedTaskDueDate > dateToday + 1) {
+        dueLater.value.push(task)
+      }
+    }
   }
 )
 
@@ -61,7 +63,7 @@ classifyTasks()
       <div class="timeline-container bg-base-200 m-3 p-3 rounded-box">
         <div class="timeline-header">
           <div class="timeline-title text-4xl">
-            {{dateToday}}
+            {{ dateToday }}
           </div>
           <div class="timeline-type-toggle">
             <div class="form-control">
@@ -88,30 +90,10 @@ classifyTasks()
         </div>
         <TabsSelector v-model="activeTasks" />
         <div class="task-container">
-          <div class="task-due-past" v-if="duePast">
-            <div class="text-2xl">Past Due Tasks</div>
-            <div class="task-list" v-for="task in duePast" :key="task.id">
-              <TaskItem :task="task" />
-            </div>
-          </div>
-         <div class="task-due-today" >
-            <div class="text-2xl">Due Today</div>
-            <div class="task-list" v-for="task in dueToday" :key="task.id">
-              <TaskItem :task="task" />
-            </div>
-          </div>
-          <div class="task-due-tomorrow" >
-            <div class="text-2xl">Due Tomorrow</div>
-            <div class="task-list" v-for="task in dueTomorrow" :key="task.id">
-              <TaskItem :task="task" />
-            </div>
-          </div>
-          <div class="task-due-later" >
-            <div class="text-2xl">Later Due Tasks</div>
-            <div class="task-list" v-for="task in dueLater" :key="task.id">
-              <TaskItem :task="task" />
-            </div>
-          </div>
+          <TaskDueContainer :task-array="duePast" container-title="Past Due Tasks" :task-filter="activeTasks" />
+          <TaskDueContainer :task-array="dueToday" container-title="Due Today" :task-filter="activeTasks" />
+          <TaskDueContainer :task-array="dueTomorrow" container-title="Due Tomorrow" :task-filter="activeTasks" />
+          <TaskDueContainer :task-array="dueLater" container-title="Later Due Tasks" :task-filter="activeTasks" />
 
 
         </div>
