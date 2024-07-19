@@ -22,7 +22,7 @@ const props = defineProps(['task'])
                              height="1.5rem" style="color: red; font-weight: bold"></iconify-icon>
       </div>
       <div class="task-tags flex gap-0.5 text-xs items-center" v-for="tag in props.task.tags" :key="tag">
-        <span class="badge badge-outline">{{ tag }}</span>
+        <span class="badge badge-sm badge-outline">{{ tag }}</span>
       </div>
     </div>
   </div>
