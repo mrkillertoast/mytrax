@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { EnumTaskPriority } from '@/Enums/EnumTaskPriority'
-import type { ITaskItem } from '@/interfaces/ITaskItem'
-
 const props = defineProps(['task'])
 
 </script>
