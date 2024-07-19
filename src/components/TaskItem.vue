@@ -23,8 +23,8 @@ const props = defineProps(['task'])
       <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_HIGH"><iconify-icon icon="material-symbols:arrow-circle-up-outline-rounded" width="1.5rem"
                              height="1.5rem" style="color: red; font-weight: bold"></iconify-icon>
       </div>
-      <div class="task-tags flex gap-1.5 text-xs items-center" v-for="tag in props.task.tags" :key="tag">
-        <span class="border border-black rounded-box py-0.5 px-1">{{ tag }}</span>
+      <div class="task-tags flex gap-0.5 text-xs items-center" v-for="tag in props.task.tags" :key="tag">
+        <span class="badge badge-outline">{{ tag }}</span>
       </div>
     </div>
   </div>
