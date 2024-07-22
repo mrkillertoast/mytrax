@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="navbar bg-base-200 ">
+  <div class="navbar bg-base-200 h-12 ">
     <div class="navbar-start">
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -104,10 +104,16 @@
         <iconify-icon icon="material-symbols:notifications-outline-rounded" width="1.5rem"></iconify-icon>
 
       </a>
-      <a class="btn bg-gray-800 text-white">
-        <iconify-icon icon="material-symbols:add-rounded" width="1.5rem" height="1.5rem"></iconify-icon>
-        <span>Create New</span>
-      </a>
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn m-1 bg-gray-800 text-white">
+          <iconify-icon icon="material-symbols:add-rounded" width="1.5rem" height="1.5rem"></iconify-icon>
+          <span>Create New</span>
+        </div>
+        <ul tabindex="0" class="dropdown-content menu bg-gray-800 text-white rounded-box z-[1] w-52 p-2 shadow">
+          <li><a>Task</a></li>
+          <li><a>Calendar Event</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
