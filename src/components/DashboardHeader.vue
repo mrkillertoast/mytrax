@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { EnumCreateNewTypes } from '@/Enums/EnumCreateNewTypes'
 
+const emits = defineEmits(['createNew'])
 </script>
 
 <template>
@@ -110,8 +112,8 @@
           <span>Create New</span>
         </div>
         <ul tabindex="0" class="dropdown-content menu bg-gray-800 text-white rounded-box z-[1] w-52 p-2 shadow">
-          <li><a>Task</a></li>
-          <li><a>Calendar Event</a></li>
+          <li @click="$emit('createNew',EnumCreateNewTypes.CREATE_NEW_TASK)"><a>Task</a></li>
+          <li @click="$emit('createNew',EnumCreateNewTypes.CREATE_NEW_CALENDAR_EVENT)"><a>Calendar Event</a></li>
         </ul>
       </div>
     </div>
