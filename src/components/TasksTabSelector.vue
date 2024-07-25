@@ -11,7 +11,7 @@ function updateModel(value: string) {
 <template>
   <div role="tablist" class="tabs tabs-lifted">
     <a role="tab" class="tab" :class="model === EnumTasksTypes.PRIVATE_TASKS? 'tab-active':''"
-       @click="model=EnumTasksTypes.PRIVATE_TASKS">Private</a>
+       @click="model=EnumTasksTypes.PRIVATE_TASKS">Personal</a>
     <a role="tab" class="tab" :class="model === EnumTasksTypes.ALL_TASKS? 'tab-active':''"
        @click="model=EnumTasksTypes.ALL_TASKS">All</a>
     <a role="tab" class="tab" :class="model === EnumTasksTypes.WORKING_TASKS? 'tab-active':''"
