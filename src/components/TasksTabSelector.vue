@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { EnumTasksTypes } from '@/Enums/EnumTasksTypes'
-const model = defineModel()
 
-function updateModel(value: string) {
-  model.value = value
-}
+const model = defineModel()
 
 </script>
 
