@@ -95,11 +95,11 @@ function changeType(){
                 <!--TODO: make button font smaller + correct displaying with icons + add save button-->
                 <div class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid gap-0">
                   <iconify-icon icon="material-symbols:add-rounded" width="1.5rem" height="1.5rem" class="text-white" />
-                  <span class="text-xxs  text-white">Prio</span>
+                  <span class="text-xxs text-white">Prio</span>
                 </div>
-                <div class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid gap-0">
+                <div class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid justify-items-center gap-0">
                   <iconify-icon icon="mdi:weight-lifter" width="1.5rem" height="1.5rem" class="text-white" />
-                  <span class="text-xxs  text-white">Difficulty</span>
+                  <span class="text-xxs text-white">Difficulty</span>
                 </div>
                 <div class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid gap-0">
                   <iconify-icon icon="ant-design:tags-outlined" width="1.5rem" height="1.5rem" class="text-white" />
