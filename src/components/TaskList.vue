@@ -4,7 +4,7 @@ import TaskDueContainer from '@/components/TaskDueContainer.vue'
 import TabsSelector from '@/components/TasksTabSelector.vue'
 import { ref, type Ref } from 'vue'
 import { EnumTasksTypes } from '@/Enums/EnumTasksTypes'
-import { addDay, format } from '@formkit/tempo'
+import { addDay, date, format, isAfter, isBefore, isEqual, sameDay } from '@formkit/tempo'
 import sampleTasks from '@/demoData/sampleTasks.json'
 import type { ITaskItem } from '@/interfaces/ITaskItem'
 
@@ -26,23 +26,26 @@ const nonCompletedTasks = tasks.filter((task: ITaskItem) => {
 })
 
 const classifyTasks = (() => {
+    const dateTomorrow = addDay(currentDate, 1)
     for (const task of nonCompletedTasks.values()) {
-      const formatedTaskDueDate = format(task.dueDate, { date: 'medium' })
 
-      if (formatedTaskDueDate < dateToday) {
-        duePast.value.push(task)
-      }
-
-      if (formatedTaskDueDate == dateToday) {
+      if (sameDay(task.dueDate, currentDate)) {
         dueToday.value.push(task)
+        continue
       }
 
-      console.log(addDay(currentDate, 1))
-      if (formatedTaskDueDate === format(addDay(currentDate, 1), { date: 'medium' })) {
+      if (sameDay(task.dueDate, dateTomorrow)) {
         dueTomorrow.value.push(task)
+        continue
       }
 
-      if (formatedTaskDueDate > dateToday + 1) {
+      if (isBefore(task.dueDate, currentDate)) {
+        duePast.value.push(task)
+        continue
+      }
+
+
+      if (isAfter(task.dueDate, dateTomorrow)) {
         dueLater.value.push(task)
       }
     }
