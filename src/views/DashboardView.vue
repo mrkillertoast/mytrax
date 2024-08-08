@@ -25,17 +25,24 @@ const selectedTaskType: Ref<boolean> = ref(true)
 
 const tagList: Ref<UnwrapRef<EnumTasksTypes[]>> = ref([
   EnumTasksTypes.WORKING_TASKS
-]);
+])
 
-function changeType(){
+function changeType() {
   switch (selectedTaskType.value) {
     case true: // Work task
-      tagList.value[0] = EnumTasksTypes.WORKING_TASKS
-      break;
+      tagList.value[ 0 ] = EnumTasksTypes.WORKING_TASKS
+      break
     case false: // False = Private Task
-      tagList.value[0] = EnumTasksTypes.PRIVATE_TASKS
-      break;
+      tagList.value[ 0 ] = EnumTasksTypes.PRIVATE_TASKS
+      break
   }
+}
+
+const tagInput: Ref<String> = ref('')
+
+function appendTag(tag: string) {
+  tagList.value.push(tag) //TODO:Correct Type + store inserted TAGs to a "myTags" Storage in Acc.
+
 }
 
 </script>
@@ -71,7 +78,8 @@ function changeType(){
                 <input type="text" placeholder="Title" class="input input-bordered w-full max-w-xs" />
                 Private
                 <div class="type-toggle">
-                  <input type="checkbox" class="toggle bg-black hover:bg-gray-500" v-model="selectedTaskType" @change="changeType" />
+                  <input type="checkbox" class="toggle bg-black hover:bg-gray-500" v-model="selectedTaskType"
+                         @change="changeType" />
                 </div>
                 Work
               </div>
@@ -82,9 +90,9 @@ function changeType(){
               <textarea class="textarea textarea-bordered w-full h-96" placeholder="Description"></textarea>
             </div>
             <div class="new-task-meta-data">
-              <div class="task-tags mt-2 " v-for="tag in tagList" :key="tag">
-                <div class="badge badge-neutral">#{{ tag }}</div>
-                <!-- TODO: convert to tags container, only show if something selected, auto add private or work -->
+              <div class="task-tags mt-2 flex gap-2 flex-wrap">
+                <div class="badge badge-neutral" v-for="tag in tagList" :key="tag">#{{ tag }}</div>
+                <!-- TODO: add Option to remove tags -->
               </div>
               <div class="divider mt-1.5" />
               <div class="task-time-properties">
@@ -92,7 +100,7 @@ function changeType(){
               </div>
               <div class="divider" />
               <div class="task-options mt-5 flex gap-2">
-                <!--TODO: make button font smaller + correct displaying with icons + add save button-->
+                <!--TODO:  add save button-->
                 <div class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid gap-0">
                   <iconify-icon icon="material-symbols:add-rounded" width="1.5rem" height="1.5rem" class="text-white" />
                   <span class="text-xxs text-white">Prio</span>
@@ -101,9 +109,24 @@ function changeType(){
                   <iconify-icon icon="mdi:weight-lifter" width="1.5rem" height="1.5rem" class="text-white" />
                   <span class="text-xxs text-white">Difficulty</span>
                 </div>
-                <div class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid gap-0">
-                  <iconify-icon icon="ant-design:tags-outlined" width="1.5rem" height="1.5rem" class="text-white" />
-                  <span class="text-xxs text-white">TAGs</span>
+                <div class="dropdown dropdown-top">
+                  <div tabindex="0" role="button"
+                       class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid gap-0">
+                    <iconify-icon icon="ant-design:tags-outlined" width="1.5rem" height="1.5rem" class="text-white" />
+                    <span class="text-xxs text-white">TAGs</span>
+                  </div>
+                  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow mb-1">
+                    <li><a>Item 2</a></li>
+                    <li>
+                      <label class="input input-bordered flex items-center gap-2 mt-2">
+                        <!-- TODO: Use tagInput to filter saved tags -->
+                        <input @keyup.enter="appendTag(tagInput)" type="text" class="grow" placeholder="Search"
+                               v-model="tagInput" />
+                        <iconify-icon icon="material-symbols:add-rounded" width="1.5rem" height="1.5rem"
+                                      @click="appendTag(tagInput)"></iconify-icon>
+                      </label>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
