@@ -15,7 +15,7 @@ const props = defineProps(['task'])
       <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_LOW"><iconify-icon icon="material-symbols:arrow-circle-down-outline-rounded" width="1.5rem"
                                    height="1.5rem" style="color: green; font-weight: bold"></iconify-icon>
       </div>
-      <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_NORMAL"><iconify-icon icon="clarity:circle-solid" width="1.5rem"
+      <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_NORMAL"><iconify-icon icon="material-symbols:circle-outline" width="1.5rem"
                              height="1.5rem" style="color: dodgerblue; font-weight: bold"></iconify-icon>
       </div>
       <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_HIGH"><iconify-icon icon="material-symbols:arrow-circle-up-outline-rounded" width="1.5rem"

@@ -7,6 +7,7 @@ import { EnumCreateNewTypes } from '@/Enums/EnumCreateNewTypes'
 import { type Ref, ref, type UnwrapRef } from 'vue'
 import TwoColumnsGrid from '@/components/TwoColumnsGrid.vue'
 import { EnumTasksTypes } from '@/Enums/EnumTasksTypes'
+import { EnumTaskDifficulty } from '@/Enums/EnumTaskDifficulty'
 
 const createNewMode = ref(EnumCreateNewTypes.CREATE_NEW_NONE)
 
@@ -42,6 +43,24 @@ const tagInput: Ref<String> = ref('')
 
 function appendTag(tag: string) {
   tagList.value.push(tag) //TODO:Correct Type + store inserted TAGs to a "myTags" Storage in Acc.
+
+}
+
+handleDifficulty(EnumTaskDifficulty.DIFFICULTY_NORMAL)
+
+function handleDifficulty(difficulty: EnumTaskDifficulty) {
+  switch(difficulty){
+    case EnumTaskDifficulty.DIFFICULTY_HARD:
+      tagList.value[1] = 'hard'
+      break;
+    case EnumTaskDifficulty.DIFFICULTY_NORMAL:
+      tagList.value[1] = 'normal'
+      break;
+    case EnumTaskDifficulty.DIFFICULTY_EASY:
+      tagList.value[1] = 'easy'
+      break;
+
+  }
 
 }
 
@@ -105,9 +124,17 @@ function appendTag(tag: string) {
                   <iconify-icon icon="material-symbols:add-rounded" width="1.5rem" height="1.5rem" class="text-white" />
                   <span class="text-xxs text-white">Prio</span>
                 </div>
-                <div class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid justify-items-center gap-0">
-                  <iconify-icon icon="mdi:weight-lifter" width="1.5rem" height="1.5rem" class="text-white" />
-                  <span class="text-xxs text-white">Difficulty</span>
+                <div class="dropdown dropdown-top">
+                  <div tabindex="0" role="button"
+                       class="btn btn-square btn-priority h-12 w-12 bg-fuchsia-800 grid gap-0 justify-items-center">
+                    <iconify-icon icon="mdi:weight-lifter" width="1.5rem" height="1.5rem" class="text-white" />
+                    <span class="text-xxs text-white">Difficulty</span>
+                  </div>
+                  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-fit p-2 shadow mb-1">
+                    <li><a @click="handleDifficulty(2)">Hard</a></li>
+                    <li><a @click="handleDifficulty(1)">Normal</a></li>
+                    <li><a @click="handleDifficulty(0)">Easy</a></li>
+                  </ul>
                 </div>
                 <div class="dropdown dropdown-top">
                   <div tabindex="0" role="button"
