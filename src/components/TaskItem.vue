@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { EnumTaskPriority } from '@/Enums/EnumTaskPriority'
-const props = defineProps(['task'])
+
+const props = defineProps([ 'task' ])
 
 </script>
 
@@ -8,18 +9,22 @@ const props = defineProps(['task'])
   <div class="task-item p-2 border border-black rounded-box mt-2">
     <div class="task-header flex gap-2">
       <input type="checkbox" name="" id="" class="checkbox">
-      <div class="task-title font-bold">{{props.task.title}}</div>
+      <div class="task-title font-bold">{{ props.task.title }}</div>
     </div>
 
     <div class="task-content flex gap-2 mt-1 h-6">
-      <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_LOW"><iconify-icon icon="material-symbols:arrow-circle-down-outline-rounded" width="1.5rem"
-                                   height="1.5rem" style="color: green; font-weight: bold"></iconify-icon>
+      <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_LOW">
+        <iconify-icon icon="material-symbols:arrow-circle-down-outline-rounded" width="1.5rem"
+                      height="1.5rem" style="color: green; font-weight: bold"></iconify-icon>
       </div>
-      <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_NORMAL"><iconify-icon icon="material-symbols:circle-outline" width="1.5rem"
-                             height="1.5rem" style="color: dodgerblue; font-weight: bold"></iconify-icon>
+
+      <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_NORMAL">
+        <div class="placeholder w-[1.5rem] h-[1.5rem]"></div>
       </div>
-      <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_HIGH"><iconify-icon icon="material-symbols:arrow-circle-up-outline-rounded" width="1.5rem"
-                             height="1.5rem" style="color: red; font-weight: bold"></iconify-icon>
+
+      <div class="" v-show="props.task.priority===EnumTaskPriority.PRIORITY_HIGH">
+        <iconify-icon icon="material-symbols:arrow-circle-up-outline-rounded" width="1.5rem"
+                      height="1.5rem" style="color: red; font-weight: bold"></iconify-icon>
       </div>
       <div class="task-tags flex gap-0.5 text-xs items-center" v-for="tag in props.task.tags" :key="tag">
         <span class="badge badge-sm badge-outline">{{ tag }}</span>
